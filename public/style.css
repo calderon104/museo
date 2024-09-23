@@ -128,12 +128,11 @@ h1 {
   width: 30%;
   height: auto;
 }
-ul{
+.flechas{
   display:flex;
   justify-content:center;
 }
-ul button{
+.flechas button{
   padding: 10px 20px;
-  font-side:16px;
   cursor:pointer;
 }
