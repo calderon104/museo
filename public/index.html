@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script> 
+    <title>Trabajo Final</title>
+</head>
+<body>
+  <div id ="cabecera">
+    <h1>MUSEO</h1>
+  </div>
+    <form id="formulario" method="post">
+        <label for="palabraClave"></label>
+        <input type="text" id="palabraClave" placeholder="Palabra clave">
+        <label for ="localizacion"></label>
+        <input type="text" id="localizacion" placeholder="Localización">
+        <label for="departamentos"></label>
+        <select name="departamentos" id="departamentos"></select>
+        <button type="submit" id="btn">Buscar</button>
+    </form>
+    <div id="galeria">
+    </div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+          <span id="cerrarModal" class="close">&times;</span>
+          <div id="additionalImagesContainer" class="images-container"></div>
+        </div>
+      </div>
+      <div id="paginacion">
+        <button id="prevPage" disabled>Anterior</button>
+        <button id="nextPage">Siguiente</button>
+      </div>
+
+</body>
+</html>
