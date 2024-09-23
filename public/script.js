@@ -31,8 +31,9 @@ $formulario.addEventListener("submit", (event) => {
   if (depto) objFinal.depto = depto;
 
   cargarURL(objFinal);
-  $flechas.style.display = "block"; // MOstrar flechas de paginación
+   $flechas.style.display = "block"; // MOstrar flechas de paginación
 });
+
 
 function cargarURL({ palabra = "", ubi, depto }) {
   const params = new URLSearchParams();
@@ -131,7 +132,7 @@ function crearCard(obj) {
   img.setAttribute("class", "foto");
   img.setAttribute("src", obj.primaryImage || "./no.imagen.png");
 
-  anio.textContent = obj.objectDate || "Sin año.";
+  anio.textContent ="Fecha: "+ obj.objectDate || "Sin año.";
   anio.style.display = "none";
 
   // Añadir los elementos a la tarjeta
