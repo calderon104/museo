@@ -2,10 +2,15 @@ const express = require("express");
 const app = express();
 const traducir = require("node-google-translate-skidz");
 const bodyParser = require("body-parser");
+var path = require('path');
 
 app.use(bodyParser.json());
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get("/", (req, res) => {
+ res.render('index');
+});
 
 app.get("/traducir", (req, res) => {
   const { titulo, cultura, dinastia, idioma } = req.query;
