@@ -3,8 +3,6 @@ const app = express();
 const traducir = require("node-google-translate-skidz");
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 3000;
-const cors = require('cors');
-app.use(cors());
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
