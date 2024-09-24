@@ -10,7 +10,7 @@ app.use(express.static("public"));
 app.get("/traducir", (req, res) => {
   const { titulo, cultura, dinastia, idioma } = req.query;
 
-  const idiomaDestino = idioma || "es";
+  const idiomaDestino = idioma || "es"; 
 
   const promises = [];
 
