@@ -212,7 +212,7 @@ window.onclick = function (event) {
 };
 
 function traducirObjeto(titulo, cultura, dinastia, idioma) {
-  const url = `/traducir?titulo=${encodeURIComponent(
+  const url = `https://tu-proyecto.vercel.app/traducir?titulo=${encodeURIComponent(
     titulo
   )}&cultura=${encodeURIComponent(cultura)}&dinastia=${encodeURIComponent(
     dinastia
@@ -225,3 +225,4 @@ function traducirObjeto(titulo, cultura, dinastia, idioma) {
     })
     .catch((error) => console.error("ERROR EN LA TRADUCCION: " + error));
 }
+
