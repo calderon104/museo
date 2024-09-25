@@ -31,9 +31,8 @@ $formulario.addEventListener("submit", (event) => {
   if (depto) objFinal.depto = depto;
 
   cargarURL(objFinal);
-   $flechas.style.display = "block"; // MOstrar flechas de paginación
+  $flechas.style.display = "block"; // MOstrar flechas de paginación
 });
-
 
 function cargarURL({ palabra = "", ubi, depto }) {
   const params = new URLSearchParams();
@@ -120,7 +119,7 @@ function cargarDepartamentos() {
     });
 }
 
-function crearCard(obj) {
+async function crearCard(obj) {
   const card = document.createElement("div");
   const img = document.createElement("img");
   const tittle = document.createElement("h3");
@@ -132,7 +131,7 @@ function crearCard(obj) {
   img.setAttribute("class", "foto");
   img.setAttribute("src", obj.primaryImage || "./no.imagen.png");
 
-  anio.textContent ="Fecha: "+ obj.objectDate || "Sin año.";
+  anio.textContent = "Fecha: " + obj.objectDate || "Sin año.";
   anio.style.display = "none";
 
   // Añadir los elementos a la tarjeta
@@ -163,22 +162,33 @@ function crearCard(obj) {
 
     card.appendChild(btnVerMas);
   }
+  
+
+  const text1=obj.title;
+  const text2=obj.culture;
+  const text3=obj.dynasty;
+  const tituloTraducido = await traducirObjeto(text1,"es");
+  const culturaTraducida = await traducirObjeto(text2,"es");
+  const dinastiaTraducida = await traducirObjeto(text3,"es");
+  tittle.textContent = tituloTraducido || obj.title;
+  cultura.textContent = culturaTraducida || "Sin cultura.";
+  dinastia.textContent = dinastiaTraducida || "Sin dinastía.";
 
   // Llamar a la función de traducción y actualizar los textos
-  traducirObjeto(
-    obj.title,
-    obj.culture || "Sin cultura.",
-    obj.dynasty || "Sin dinastía.",
-    "es"
-  )
-    .then((traduccion) => {
-      tittle.textContent = traduccion.tituloTraducido || obj.title;
-      cultura.textContent = traduccion.culturaTraducida || "Sin cultura.";
-      dinastia.textContent = traduccion.dinastiaTraducida || "Sin dinastía.";
-    })
-    .catch((error) => {
-      console.error("Error al traducir el objeto:", error);
-    });
+  // await traducirObjeto(
+  //   obj.title,
+  //   obj.culture || "Sin cultura.",
+  //   obj.dynasty || "Sin dinastía.",
+  //   "es"
+  // )
+  //   .then((traduccion) => {
+  //     tittle.textContent = traduccion.tituloTraducido || obj.title;
+  //     cultura.textContent = traduccion.culturaTraducida || "Sin cultura.";
+  //     dinastia.textContent = traduccion.dinastiaTraducida || "Sin dinastía.";
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error al traducir el objeto:", error);
+  //   });
 
   $galeria.appendChild(card);
 }
@@ -211,17 +221,34 @@ window.onclick = function (event) {
   }
 };
 
-function traducirObjeto(titulo, cultura, dinastia, idioma) {
-  const url = `/traducir?titulo=${encodeURIComponent(
-    titulo
-  )}&cultura=${encodeURIComponent(cultura)}&dinastia=${encodeURIComponent(
-    dinastia
-  )}&idioma=${encodeURIComponent(idioma)}`;
+// async function traducirObjeto(titulo, cultura, dinastia, idioma) {
+//   const url = `/traducir?titulo=${encodeURIComponent(
+//     titulo
+//   )}&cultura=${encodeURIComponent(cultura)}&dinastia=${encodeURIComponent(
+//     dinastia
+//   )}&idioma=${encodeURIComponent(idioma)}`;
 
-  return fetch(url)
-    .then((result) => result.json())
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => console.error("ERROR EN LA TRADUCCION: " + error));
+//   try {
+//     const result = await fetch(url);
+//     const data = await result.json();
+//     return data;
+//   } catch (error) {
+//     console.error("ERROR EN LA TRADUCCION: " + error);
+//     throw error; // or handle the error in a different way
+//   }
+// }
+async function traducirObjeto(text, targetLang) {
+  try {
+      const response = await fetch('/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: text, targetLang: targetLang })
+      });
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+      const data = await response.json();
+      return data.translatedText || text;
+  } catch (error) {
+      console.error('Error al traducir texto:', error);
+      return text; // Devuelve el texto original en caso de error
+  }
 }
