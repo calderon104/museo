@@ -4,19 +4,16 @@
   "description": "Proyecto Final(2024)",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Gonzalo Calderon",
   "license": "ISC",
   "dependencies": {
     "express": "^4.20.0",
-    "fs": "^0.0.1-security",
     "install": "^0.13.0",
     "node-fetch": "^3.3.2",
     "node-google-translate-skidz": "^1.1.2",
-    "npm": "^10.8.3",
-    "request": "^2.88.2"
+    "npm": "^10.8.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.6"
